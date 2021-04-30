@@ -1,13 +1,15 @@
 const express = require('express');
 
 const app = express();
+app.use(express.static(__dirname + "/frontend"));
 //NEW
 app.get("/", function(req, res) {
     res.send("Welcome to Varsha's Basic Site");
 })
 
 app.get("/resume", function(req, res) {
-    res.send("MY Resume");
+    let fnam = __dirname + "/frontend/HTML/resum.html";
+    res.sendFile(fnam);
 })
 
 
