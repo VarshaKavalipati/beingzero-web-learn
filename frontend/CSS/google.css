@@ -1,0 +1,43 @@
+header {
+    float: right;
+    padding-top: 25px;
+    font-style: "Roboto";
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    padding-top: 112px;
+    padding-bottom: 20px;
+}
+
+.form {
+    text-align: center;
+}
+
+#c {
+    width: 450px;
+    line-height: 32px;
+    padding: 20px 10px;
+}
+
+.form #c {
+    padding: 0 8px;
+}
+
+.buttons {
+    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 300px;
+}
