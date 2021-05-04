@@ -8,7 +8,7 @@ app.get("/", function(req, res) {
 })
 
 app.get("/resume", function(req, res) {
-    let fnam = __dirname + "/frontend/HTML/resum.html";
+    let fnam = __dirname + "/frontend/HTML/resume.html";
     res.sendFile(fnam);
 })
 app.get("/google", function(req, res) {
