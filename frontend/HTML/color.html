@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/CSS/color.css">
+</head>
+
+<body>
+    <script src="/JS/color.js"></script>
+    <div class="box1" align="center"></div>
+    <div class="box2" align="center">
+        <span><label for="r">RED</label></span><br>
+        <span><input type="range" id="re" name="r" min="0" max="255" value="255" onchange="rval(this.value);"></span>
+        <p><span id="rv">255</span></p>
+    </div>
+    <div class="box3">
+        <span><label for="g">GREEN</label></span><br>
+        <span><input type="range" id="gr" name="g" min="0" max="255" value="99" onchange="gval(this.value);"></span>
+        <p><span id="gv">99</span></p>
+    </div>
+    <div class="box4">
+        <span><label for="b">BLUE</label></span><br>
+        <span><input type="range" id="bl" name="b" min="0" max="255" value="71" onchange="bval(this.value);"></span>
+        <p><span id="bv">71</span></p>
+    </div>
+</body>
+
+</html>
