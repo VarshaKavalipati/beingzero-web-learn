@@ -6,27 +6,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/CSS/color.css">
 </head>
 
 <body>
     <script src="/JS/color.js"></script>
-    <div class="box1" align="center"></div>
-    <div class="box2" align="center">
-        <span><label for="r">RED</label></span><br>
-        <span><input type="range" id="re" name="r" min="0" max="255" value="255" onchange="rval(this.value);"></span>
-        <p><span id="rv">255</span></p>
+    <br>
+    <br>
+    <div class="box1" align="center" style="text-align: center; background-color: rgb(255, 99, 71); line-height: 80px; width: 400px; display: block; margin: auto;">
+        <p style="color:floralwhite;"><b>rgb(255,99,71)</b></p>
     </div>
-    <div class="box3">
-        <span><label for="g">GREEN</label></span><br>
-        <span><input type="range" id="gr" name="g" min="0" max="255" value="99" onchange="gval(this.value);"></span>
-        <p><span id="gv">99</span></p>
-    </div>
-    <div class="box4">
-        <span><label for="b">BLUE</label></span><br>
-        <span><input type="range" id="bl" name="b" min="0" max="255" value="71" onchange="bval(this.value);"></span>
-        <p><span id="bv">71</span></p>
-    </div>
+    <br>
+    <br>
+    <br>
+    <table align="center" width="700px" height="100px">
+        <tr>
+            <th><label for="r">RED</label><br></th>
+            <th>
+                <label for="g">GREEN</label><br>
+            </th>
+            <th>
+                <label for="b">BLUE</label><br>
+            </th>
+        </tr>
+        <tr>
+            <th><input type="range" id="re" name="r" min="0" max="255" value="255" onchange="rval(this.value);"></th>
+            <th>
+                <input type="range" id="gr" name="g" min="0" max="255" value="99" onchange="gval(this.value);">
+            </th>
+            <th>
+                <input type="range" id="bl" name="b" min="0" max="255" value="71" onchange="bval(this.value);">
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <p><span id="rv">255</span></p>
+            </th>
+            <th>
+                <p><span id="gv">99</span></p>
+            </th>
+            <th>
+                <p><span id="bv">71</span></p>
+            </th>
+        </tr>
+    </table>
 </body>
 
 </html>
