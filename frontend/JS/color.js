@@ -1,21 +1,15 @@
-var re = document.getElementById("re");
-
-var gr = document.getElementById("gr");
-
-var bl = document.getElementById("bl");
-
-
-function rval(val) {
-    document.getElementById("rv").innerHTML = val;
-    re = val;
-}
-
-function gval(val) {
-    document.getElementById("gv").innerHTML = val;
-    gr = val;
-}
-
-function bval(val) {
-    document.getElementById("bv").innerHTML = val;
-    bl = val;
+function onColorRangeChange() {
+    let pE = document.getElementById("pColor");
+    let rE = document.getElementById("reS");
+    let gE = document.getElementById("greS");
+    let bE = document.getElementById("bluS");
+    let rgbprop = "rgb(" + rE.value + "," + gE.value + "," + bE.value + ")";
+    pE.innerHTML = rgbprop;
+    pE.style.backgroundColor = rgbprop;
+    let a = document.getElementById("rv");
+    let b = document.getElementById("gv");
+    let c = document.getElementById("bv");
+    a.innerHTML = rE.value;
+    b.innerHTML = gE.value;
+    c.innerHTML = bE.value;
 }
