@@ -4,7 +4,8 @@ const app = express();
 app.use(express.static(__dirname + "/frontend"));
 //NEW
 app.get("/", function(req, res) {
-    res.send("Welcome to Varsha's Basic Site");
+    let nam = __dirname + "/frontend/HTML/basic.html"
+    res.sendFile(nam);
 })
 
 app.get("/resume", function(req, res) {
@@ -27,8 +28,11 @@ app.get("/register", function(req, res) {
     let xnam = __dirname + "/frontend/HTML/register.html";
     res.sendFile(xnam);
 })
-
-// Heroku will automatically set an environment variable called PORT
+app.get("/pie", function(req, res) {
+        let ynam = __dirname + "/frontend/HTML/pie.html";
+        res.sendFile(ynam);
+    })
+    // Heroku will automatically set an environment variable called PORT
 const PORT = process.env.PORT || 3000;
 
 // Start the server

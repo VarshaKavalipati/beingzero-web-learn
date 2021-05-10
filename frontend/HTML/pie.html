@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIE CHART</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {
+            packages: ["corechart"]
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Website', 'Problems Solved'],
+                ['Mentorpick', 157],
+                ['Interviewbit', 22],
+                ['Leetcode', 41],
+                ['Vjudege', 112],
+                ['Codechef', 7]
+            ]);
+
+            var options = {
+                title: 'Problems Solved',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart_2d'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body style="background-color: khaki;">
+    <h1 style="text-align: center; color: navy; text-decoration: underline;">PIE CHART</h1>
+    <br>
+    <div id="piechart_2d" style="width: 900px; height: 500px; margin: auto; border: 2px; border: solid; text-align: center;"></div>
+</body>
+
+</html>
