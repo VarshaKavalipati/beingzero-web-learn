@@ -1,6 +1,9 @@
 const express = require('express');
 
 const app = express();
+var todo = [];
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(__dirname + "/frontend"));
 //NEW
 app.get("/", function(req, res) {
@@ -32,13 +35,17 @@ app.get("/pie", function(req, res) {
     let ynam = __dirname + "/frontend/HTML/pie.html";
     res.sendFile(ynam);
 })
+app.get("/api/todo", function(req, res) {
+    res.json(todo);
+})
 app.get("/todo", function(req, res) {
     res.sendFile(__dirname + "/frontend/HTML/todo.html");
 })
-app.post("/api/users", function(req, res) {
-        var l = req.body;
-        console.log(l);
-        res.json({ l });
+app.post("/api/todo", function(req, res) {
+        var newdata = req.body;
+        console.log(newdata);
+        todo.push(newdata);
+        res.json(todo);
     })
     // Heroku will automatically set an environment variable called PORT
 const PORT = process.env.PORT || 3000;
