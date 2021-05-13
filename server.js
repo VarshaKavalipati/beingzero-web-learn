@@ -36,12 +36,9 @@ app.get("/todo", function(req, res) {
     res.sendFile(__dirname + "/frontend/HTML/todo.html");
 })
 app.post("/api/users", function(req, res) {
-        response = {
-            Task: req.body.c,
-            Number: "1"
-        };
-        console.log(response);
-        res.end(JSON.stringify(response));
+        var l = req.body;
+        console.log(l);
+        res.json({ l });
     })
     // Heroku will automatically set an environment variable called PORT
 const PORT = process.env.PORT || 3000;
