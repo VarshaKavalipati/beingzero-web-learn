@@ -29,8 +29,19 @@ app.get("/register", function(req, res) {
     res.sendFile(xnam);
 })
 app.get("/pie", function(req, res) {
-        let ynam = __dirname + "/frontend/HTML/pie.html";
-        res.sendFile(ynam);
+    let ynam = __dirname + "/frontend/HTML/pie.html";
+    res.sendFile(ynam);
+})
+app.get("/todo", function(req, res) {
+    res.sendFile(__dirname + "/frontend/HTML/todo.html");
+})
+app.post("/api/users", function(req, res) {
+        response = {
+            Task: req.body.c,
+            Number: "1"
+        };
+        console.log(response);
+        res.end(JSON.stringify(response));
     })
     // Heroku will automatically set an environment variable called PORT
 const PORT = process.env.PORT || 3000;

@@ -1,0 +1,53 @@
+<!doctype html>
+<html data-framework="vue">
+
+<head>
+    <style>
+        .form {
+            text-align: center;
+        }
+        
+        #c {
+            width: 500px;
+            line-height: 50px;
+            padding: 200px 200px;
+        }
+        
+        .form #c {
+            padding: 0 8px;
+            font-family: sans-serif;
+            font-size: x-large;
+            border: none;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>Varsha's Todo</title>
+</head>
+
+<body style="background-color: lavender;">
+    <br>
+    <br>
+    <h1 style="margin: auto; text-align: center; color:indigo; font-family:cursive;"><u>TODO</u></h1><br><br>
+    <div class="form">
+        <form action="/api/users" method="POST">
+            <input id="c" name="c" type="text" placeholder="What needs to be done?">
+            <input type="submit" onclick="name()"><br>
+            <br>
+            <button onclick="showdata()">Display Data</button>
+            <p id="fill"></p>
+            <br>
+        </form>
+    </div>
+    <hr>
+    <div style="margin: auto; text-align: center;">
+        <ul class="filters">
+            <a href="#/all">All</a> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            <a href="#/active">Active</a> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            <a href="#/completed">Completed</a> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            <button class="clear-completed">Clear completed</button>
+        </ul>
+    </div>
+    <script src="/frontend/JS/todo.js"></script>
+</body>
+
+</html>
