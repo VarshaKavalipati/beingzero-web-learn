@@ -1,6 +1,10 @@
 const express = require('express');
-
+const bodyParser = require('body-parser');
+const courselib = require('./backend/lib/courselib');
+const dbconnect = require('./backend/db/dbconnect');
 const app = express();
+dbconnect.connect();
+const crypto = require("crypto");
 var todo = [];
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,6 +42,13 @@ app.get("/pie", function(req, res) {
 app.get("/api/todo", function(req, res) {
     res.json(todo);
 })
+
+app.get("/crud", function(req, res) {
+    res.sendFile(__dirname + "/frontend/HTML/crud.html");
+})
+app.get('/api/courses', courselib.getallcourses);
+app.post('/api/courses', courselib.createcourse);
+
 app.get("/todo", function(req, res) {
     res.sendFile(__dirname + "/frontend/HTML/todo.html");
 })
