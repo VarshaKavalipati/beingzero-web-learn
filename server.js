@@ -1,14 +1,40 @@
 const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const courselib = require('./backend/lib/courselib');
-const dbconnect = require('./backend/db/dbconnect');
 const app = express();
-dbconnect.connect();
+const courselib = require('./backend/lib/courselib');
+// const dbconnect = require('./backend/db/dbconnect');
+
+// dbconnect.connect();
 const crypto = require("crypto");
 var todo = [];
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/frontend"));
+
+app.use(express.static(path.join(__dirname, "frontend")));
+
+
+
+
+var connectionString = "mongodb+srv://varsha_1996:varshacoder@cluster0.aidzd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+var db = mongoose.connection;
+db.on('connected', function() {
+    console.log('MongoDB connected!');
+});
+
+db.on('error', function(error) {
+    console.error('Error in MongoDb connection: ' + error);
+});
+
+db.on('disconnected', function() {
+    console.log('MongoDB disconnected!');
+});
+
+
+
 //NEW
 app.get("/", function(req, res) {
     let nam = __dirname + "/frontend/HTML/basic.html"
@@ -43,22 +69,26 @@ app.get("/api/todo", function(req, res) {
     res.json(todo);
 })
 
-app.get("/crud", function(req, res) {
-    res.sendFile(__dirname + "/frontend/HTML/crud.html");
-})
-app.get('/api/courses', courselib.getallcourses);
-app.post('/api/courses', courselib.createcourse);
 
 app.get("/todo", function(req, res) {
     res.sendFile(__dirname + "/frontend/HTML/todo.html");
 })
 app.post("/api/todo", function(req, res) {
-        var newdata = req.body;
-        console.log(newdata);
-        todo.push(newdata);
-        res.json(todo);
-    })
-    // Heroku will automatically set an environment variable called PORT
+    var newdata = req.body;
+    console.log(newdata);
+    todo.push(newdata);
+    res.json(todo);
+})
+
+app.get("/crudop", function(req, res) {
+    filePathName = __dirname + '/frontend/HTML/crud.html';
+    res.sendFile(filePathName);
+})
+app.get("/crud", courselib.getall);
+app.delete("/crud/:idd", courselib.deleteone);
+app.put("/crud/:idd", courselib.update);
+app.post("/crud", courselib.addnewone);
+// Heroku will automatically set an environment variable called PORT
 const PORT = process.env.PORT || 3000;
 
 // Start the server
