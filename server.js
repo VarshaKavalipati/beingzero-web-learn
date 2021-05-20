@@ -38,6 +38,9 @@ app.get("/color", function(req, res) {
     let hnam = __dirname + "/frontend/HTML/color.html";
     res.sendFile(hnam);
 })
+app.get("/tambola", function(req, res) {
+    res.sendFile(__dirname + "/frontend/HTML/tambola.html");
+})
 app.get("/login", function(req, res) {
     let znam = __dirname + "/frontend/HTML/login.html";
     res.sendFile(znam);
