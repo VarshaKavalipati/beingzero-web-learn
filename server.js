@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 const courselib = require('./backend/lib/courselib');
+const config = require('./backend/config/config');
+const dbConnectLib = require('./backend/lib/dbConnectLib');
 // const dbconnect = require('./backend/db/dbconnect');
 
 // dbconnect.connect();
@@ -15,24 +17,7 @@ app.use(express.static(__dirname + "/frontend"));
 
 app.use(express.static(path.join(__dirname, "frontend")));
 
-
-
-
-var connectionString = "mongodb+srv://varsha_1996:varshacoder@cluster0.aidzd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
-var db = mongoose.connection;
-db.on('connected', function() {
-    console.log('MongoDB connected!');
-});
-
-db.on('error', function(error) {
-    console.error('Error in MongoDb connection: ' + error);
-});
-
-db.on('disconnected', function() {
-    console.log('MongoDB disconnected!');
-});
-
+dbConnectLib.connect();
 
 
 //NEW
@@ -89,9 +74,9 @@ app.delete("/crud/:idd", courselib.deleteone);
 app.put("/crud/:idd", courselib.update);
 app.post("/crud", courselib.addnewone);
 // Heroku will automatically set an environment variable called PORT
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 
 // Start the server
-app.listen(PORT, function() {
-    console.log("Server Starting running on http://localhost:" + PORT);
+app.listen(config.webPort, function() {
+    console.log("Server Starting running on http://localhost:" + config.webPort);
 })
