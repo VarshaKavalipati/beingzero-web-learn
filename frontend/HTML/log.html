@@ -1,40 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-<body style="background-color:cornflowerblue">
-    <h1 style="text-align: center; color:black;"><u>LOGIN</u></h1>
-    <div style="display: block; margin: auto; border: black; border: solid; width: 300px; height: auto; text-align: center; background-color:blanchedalmond">
-        <form id="Action">
-            <br>
-            <br>
-            <label for="username"><b>Username:</b></label><br>
-            <input type="text" id="username" name="username"><br>
-            <br>
-            <label for="pwd"><b>Password:</b></label><br>
-            <input type="password" id="pwd" name="pwd"><br><br>
-            <br>
-            <center><button onclick="save()" style="font-size:20px;color:blue;padding: 10px 50px; margin: 4px 2px;">login</button></center>
-
-            <p><i style="font-size: 5em;" class="fa fa-sign-in" aria-hidden="true"></i></p>
-
-        </form>
-        <center><a href="">forgotten password?</a></center><br>
-        <center><a href="/html/register.html" target="_blank">Register</a><br>
-            <br>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+<body style="background-color:skyblue;">
+    <div>
+        <center>
+            <h1>LOGIN PAGE</h1>
         </center>
-
-        <br>
+        <div style="top:100px;bottom:500px;width:400px;height:500px;background-color:white;right:500px;position:absolute;border:solid;">
+            <p><i style="font-size: 5em;" class="fa fa-sign-in" aria-hidden="true"></i></p>
+            <b><label style="font-size:25px;" for="username">username</label></b>
+            <input name="username" id="username" type="text" placeholder="email or phone number" size=30 width=30><br><br>
+            <b><label style="font-size:25px;" for="password">password</label></b>
+            <input name="password" id="password" type="text"><br><br>
+            <a href="/html/color.html" target="_blank">
+                <center><button onclick="save()" style="font-size:20px;color:blue;padding: 10px 50px; margin: 4px 2px;">login</button></center>
+            </a><br></form>
+            <center><a href="">forgotten password?</a></center><br>
+            <center><a href="/html/registration.html" target="_blank">Register</a>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </center>
+        </div>
     </div>
-    <script src="https://use.fontawesome.com/1f2d0babb8.js"></script>
+    </div>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="445093466494-u1c7jg8178j553gv6o6ao8uohia3cja6.apps.googleusercontent.com">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -51,13 +41,13 @@
         function onSignIn(googleUser) {
             var id_token = googleUser.getAuthResponse().id_token;
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/login');
+            xhr.open('POST', '/basic');
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 console.log('Signed in as: ' + xhr.responseText);
                 if (xhr.responseText == 'success') {
                     signOut();
-                    location.assign('/');
+                    location.assign('/basic');
                 }
             };
             xhr.send(JSON.stringify({
@@ -66,14 +56,9 @@
         }
 
         function save() {
-            var x = document.getElementById("username");
-            var y = document.getElementById("pwd");
-            var k = document.getElementById("Action");
-            var p = "Your username is: " + x.value + " and the password is: " + y.value + ".";
-            k.innerHTML = p;
             var userObject = {};
             userObject.username = $("#username").val();
-            userObject.password = $("#pwd").val();
+            userObject.password = $("#password").val();
             //userObject.role=$("#role").val();
             $.ajax({
                 url: "/api/users",
@@ -89,6 +74,14 @@
                     //alert(error);
                 }
             });
+            /*$.ajax({
+            url: "/home",
+            type: "GET",
+            });*/
+            /*$.post("/api/users",userObject)
+                .done(function(data){
+                    console.log(data);
+                });*/
         }
     </script>
 </body>
