@@ -69,7 +69,7 @@ var isNotAuthenticated = (req, res, next) => {
 }
 
 app.get("/indexpage", isAuthenticated, (req, res) => {
-    res.sendFile(__dirname + "/frontend/html/home.html")
+    res.sendFile(__dirname + "/frontend/HTML/home.html");
 })
 
 app.get("/getdetails", isAuthenticated, (req, res) => {
