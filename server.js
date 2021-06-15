@@ -11,6 +11,14 @@ const users = require('./backend/models/usermodel');
 // const dbconnect = require('./backend/db/dbconnect');
 
 // dbconnect.connect();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(__dirname + "/frontend"));
+
+app.use(express.static(path.join(__dirname, "frontend")));
+
+
 const { request } = require('express');
 var cookieParser = require("cookie-parser")
 var session = require("express-session");
@@ -19,6 +27,7 @@ dbconnect.connect();
 //dbConnectLib.connect();
 const crypto = require("crypto");
 var todo = [];
+app.use(cookieParser());
 app.use(session({
     secret: "thi is secret!!!!",
     resave: false,
@@ -29,41 +38,78 @@ app.use(session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING })
 
 }))
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname + "/frontend"));
-
-app.use(express.static(path.join(__dirname, "frontend")));
-app.use(cookieParser());
 
 
+app.post('/api/login', function(req, res) {
+    users.find(req.body, function(err, data) {
+        if (err) { res.status(400).json({ msg: "Failed" }); } else if (data.length == 1) {
+            req.session.userid = data[0]._id
+            req.session.username = data[0].username
+            console.log(req.session)
+            res.redirect("/indexpage");
 
+        } else {
 
+            res.redirect("/login");
 
+        }
+    });
+})
+var isAuthenticated = (req, res, next) => {
+    if (req.session && req.session.userid)
+        next();
+    else
+        return res.redirect("/login");
+}
+var isNotAuthenticated = (req, res, next) => {
+    if (!req.session || !req.session.userid)
+        next();
+    else
+        return res.redirect("/");
+}
 
+app.get("/indexpage", isAuthenticated, (req, res) => {
+    res.sendFile(__dirname + "/frontend/html/home.html")
+})
 
+app.get("/getdetails", isAuthenticated, (req, res) => {
+    res.json({
+        username: req.session.username
+    });
+})
 
+app.get("/api/logout", isAuthenticated, (req, res) => {
+    req.session.destroy(err => {
+        if (err)
+            return res.status(404).json({
+                err: "error"
+            })
+    })
 
+    return res.status(200).json({
+        message: "succcessfully signout"
+    })
 
+})
+app.post('/api/register', function(req, res) {
+    users.find({ email: req.body.email }, function(err, data) {
+        if (err) { res.status(400).json({ msg: "Failed" }); } else { //console.log(data);
+            if (data.length > 0)
+                res.status(200).json({ msg: "Saved Successful", result: data });
+            else {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                var add = new users(req.body);
+                add.save(function(err, record) {
+                    if (err) {
+                        res.redirect("/register");
+                    } else {
+                        res.redirect("/login");
+                    }
+                });
+            }
+        }
+    });
+})
 
 
 
@@ -127,84 +173,6 @@ app.post("/crud", courselib.addnewone);
 //const PORT = process.env.PORT || 3000;
 
 // Start the server
-
-
-
-
-
-
-
-
-app.post('/api/login', function(req, res) {
-    users.find(req.body, function(err, data) {
-        if (err) { res.status(400).json({ msg: "Failed" }); } else if (data.length == 1) {
-            req.session.userid = data[0]._id
-            req.session.username = data[0].username
-            console.log(req.session)
-            res.redirect("/indexpage");
-
-        } else {
-
-            res.redirect("/login");
-
-        }
-    });
-})
-var isAuthenticated = (req, res, next) => {
-    if (req.session && req.session.userid)
-        next();
-    else
-        return res.redirect("/login");
-}
-var isNotAuthenticated = (req, res, next) => {
-    if (!req.session || !req.session.userid)
-        next();
-    else
-        return res.redirect("/indexpage");
-}
-
-app.get("/indexpage", isAuthenticated, (req, res) => {
-    res.sendFile(__dirname + "/frontend/html/home.html")
-})
-
-app.get("/getdetails", isAuthenticated, (req, res) => {
-    res.json({
-        username: req.session.username
-    });
-})
-
-app.get("/api/logout", isAuthenticated, (req, res) => {
-    req.session.destroy(err => {
-        if (err)
-            return res.status(404).json({
-                err: "error"
-            })
-    })
-
-    return res.status(200).json({
-        message: "succcessfully signout"
-    })
-
-})
-app.post('/api/register', function(req, res) {
-    users.find({ email: req.body.email }, function(err, data) {
-        if (err) { res.status(400).json({ msg: "Failed" }); } else { //console.log(data);
-            if (data.length > 0)
-                res.status(200).json({ msg: "Saved Successful", result: data });
-            else {
-
-                var add = new users(req.body);
-                add.save(function(err, record) {
-                    if (err) {
-                        res.redirect("/register");
-                    } else {
-                        res.redirect("/login");
-                    }
-                });
-            }
-        }
-    });
-})
 
 app.listen(config.webPort, function() {
     console.log("Server Starting running on http://localhost:" + config.webPort);
