@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body style=" margin: 0; padding: 0; font-family: sans-serif; background: linear-gradient(to right,#A4C639,#e06377)">
+    <h1 id="name" style="font-family: 'Kaushan Script', cursive; text-align: center;"></h1>
+    <div style="text-align: center; font-family: 'Kaushan Script', cursive; font-size: larger;">
+        <button style="font-size:20px;color:blue;padding: 10px 50px; margin: 4px 2px;" onclick="logout()">Logout</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function logout() {
+            $.ajax({
+                url: "/api/logout",
+                method: "get",
+                success: function() {
+
+                    window.location = '/login'
+                },
+                error: function() {
+
+                    window.location.href = '/'
+                }
+            })
+        }
+        $.ajax({
+            url: "/getdetails",
+            method: "get",
+            success: function(data) {
+                $("#name").html(`Welcome ` + data.username);
+            }
+        })
+    </script>
+</body>
+
+</html>
