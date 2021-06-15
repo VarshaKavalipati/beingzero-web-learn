@@ -160,7 +160,7 @@ var isNotAuthenticated = (req, res, next) => {
     if (!req.session || !req.session.userid)
         next();
     else
-        return res.redirect("/");
+        return res.redirect("/indexpage");
 }
 
 app.get("/indexpage", isAuthenticated, (req, res) => {
